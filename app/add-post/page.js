@@ -29,6 +29,7 @@ const AddPosts = () => {
       if(res.ok){
       
         router.refresh();
+        router.push('/')
       }
       
     } catch (error) {

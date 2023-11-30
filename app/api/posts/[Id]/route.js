@@ -13,8 +13,9 @@ export async function DELETE(request, { params }) {
 
 export async function PUT(request, { params }) {
   const id = params.Id;
+  console.log("put",id);
 
-  const updatedPostData = JSON.parse(body);
+  const updatedPostData = JSON.parse(request.body);
 
   const updatedPost = await prisma.post.update({
     where: { id },
@@ -22,4 +23,15 @@ export async function PUT(request, { params }) {
   });
 
   return NextResponse.json(updatedPost);
+}
+
+export async function GET(request, { params }) {
+
+  const id = params.Id;
+
+  const post = await prisma.post.findUnique({
+    where: { id },
+  });
+
+  return NextResponse.json(post);
 }

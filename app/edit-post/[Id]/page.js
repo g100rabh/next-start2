@@ -1,8 +1,9 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import prisma from "../../../lib/prisma";
 
 const EditPosts = ({params}) => {
   console.log(params.Id)
@@ -10,6 +11,27 @@ const EditPosts = ({params}) => {
   const [content, setContent] = useState("");
   const router = useRouter();
   const formRef = useRef();
+
+  async function getPost() {
+    try {
+      const res = await fetch(`/api/posts/${params.Id}`, {
+        method: "GET",
+      });
+      if (res.ok) {
+        const postData = await res.json();
+        setTitle(postData.title);
+        setContent(postData.content);
+      } else {
+        console.error("Failed to fetch post data");
+      }
+    } catch (error) {
+      console.error("Error fetching post data:", error);
+    }
+  }
+
+  useEffect(()=>{
+    getPost()
+  },[])
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -22,7 +44,7 @@ const EditPosts = ({params}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetch(`api/posts/${params.Id}`, {
+      const res = await fetch(`/api/posts/${params.Id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, content }),
@@ -66,7 +88,10 @@ const EditPosts = ({params}) => {
             onChange={handleContentChange}
           />
         </div>
+        <span>
         <button type="submit">Submit</button>
+        <button style={{backgroundColor: 'red'}}>Cancel</button>
+        </span>
       </form>
     </div>
   );
