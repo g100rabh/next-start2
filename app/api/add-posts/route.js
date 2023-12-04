@@ -12,7 +12,7 @@ export async function POST(request) {
             title,
             content,
             published: true,
-            author: {create: {name: 'sam'}}
+            // author: {create: {name: 'sam'}}
         }
     })
     return NextResponse.json({result});

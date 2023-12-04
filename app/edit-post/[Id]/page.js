@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import prisma from "../../../lib/prisma";
 
 const EditPosts = ({params}) => {
-  console.log(params.Id)
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const router = useRouter();
@@ -41,10 +40,10 @@ const EditPosts = ({params}) => {
     setContent(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetch(`/api/posts/${params.Id}`, {
+      const res = await fetch(`/api/put/${params.Id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, content }),
@@ -60,13 +59,18 @@ const EditPosts = ({params}) => {
     formRef.current.reset();
   };
 
+  const cancelHandler = (e)=> {
+    e.preventDefault();
+    router.push('/')
+  }
+
   return (
     <div className={classes.container}>
       <Link className={classes.feedLink} href={"/"}>
         View Feed
       </Link>
       <h1>Edit Posts</h1>
-      <form ref={formRef} onSubmit={handleSubmit}>
+      <form ref={formRef}>
         <div className={classes.innerCon}>
           <label htmlFor="title">Title:</label>
           <input
@@ -89,8 +93,8 @@ const EditPosts = ({params}) => {
           />
         </div>
         <span>
-        <button type="submit">Submit</button>
-        <button style={{backgroundColor: 'red'}}>Cancel</button>
+        <button onClick={submitHandler}>Submit</button>
+        <button style={{backgroundColor: 'red'}} onClick={cancelHandler}>Cancel</button>
         </span>
       </form>
     </div>

@@ -29,7 +29,7 @@ const PostCards = (props) => {
     <div className={classes.cardCon}>
       <h2>{props.post.title}</h2>
       <p>{props.post.content}</p>
-      <span>user: {props.post.author.name}</span>
+      {/* <span>user: {props.post.author.name}</span> */}
       <span className={classes.actionCon}>
         <button onClick={editHandler}>Edit</button>
         <button style={{ color: "red" }} onClick={deleteHandler}>

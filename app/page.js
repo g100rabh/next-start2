@@ -3,6 +3,7 @@ import prisma from "../lib/prisma";
 import PostCards from "./components/PostCards";
 import AddPosts from "./add-post/page";
 import Link from "next/link";
+import '../styles/global.css';
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
