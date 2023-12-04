@@ -3,7 +3,8 @@ import prisma from "../lib/prisma";
 import PostCards from "./components/PostCards";
 import AddPosts from "./add-post/page";
 import Link from "next/link";
-import '../styles/global.css';
+import "../styles/global.css";
+import Header from "./components/Header/Header";
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
@@ -22,16 +23,19 @@ export default async function Home() {
   const posts = await getPosts();
   console.log(posts);
   return (
-    <main className={styles.main}>
-      <Link className={styles.addpost} href={"/add-post"}>
-        Add Post
-      </Link>
-      <h1>Posts</h1>
-      <div className={styles.cardCon}>
-        {posts.map((post) => (
-          <PostCards key={posts.id} post={post} />
-        ))}
-      </div>
-    </main>
+    <div>
+      <Header />
+      <main className={styles.main}>
+        <Link className={styles.addpost} href={"/add-post"}>
+          Add Post
+        </Link>
+        <h1>Posts</h1>
+        <div className={styles.cardCon}>
+          {posts.map((post) => (
+            <PostCards key={posts.id} post={post} />
+          ))}
+        </div>
+      </main>
+    </div>
   );
 }

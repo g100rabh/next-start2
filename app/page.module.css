@@ -7,6 +7,8 @@
   padding: 6rem;
   min-height: 100vh;
 }
+
+.mainDiv
 .cardCon{
   width: 100%;
   display: flex;
