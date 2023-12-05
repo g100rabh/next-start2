@@ -1,14 +1,18 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/global.css";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
   const [isLoginPage, setIsLoginPage] = useState(true);
-  const formRef = useRef();
+  const router = useRouter();
+
+ 
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -22,6 +26,7 @@ const AuthForm = () => {
     setConPassword(e.target.value);
   };
   
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!isLoginPage) {
@@ -52,8 +57,16 @@ const AuthForm = () => {
       const result = await signIn('credentials', {
         email: email,
         password: password,
-        redirect: true, 
+        redirect: false, 
       });
+      if(!result.ok){
+        alert("Invalid credentials. Please try again.");
+      }
+      console.log(result);
+      if(!result.error){
+        router.push('/');
+        router.refresh()
+      }
     }
   };
 
@@ -62,12 +75,12 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+  <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded shadow-md w-96 flex flex-col items-center justify-center">
         <h2 className="text-2xl font-semibold mb-4">
           {isLoginPage ? "Log In" : "Register"}
         </h2>
-        <form ref={formRef} onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
