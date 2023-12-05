@@ -10,7 +10,7 @@ const AddPosts = () => {
   const [content, setContent] = useState("");
   const router = useRouter();
   const formRef = useRef();
-  
+
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);

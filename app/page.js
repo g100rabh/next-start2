@@ -17,7 +17,6 @@ const getPosts = async () => {
 
   return posts;
 };
-
 export default async function Home() {
   const posts = await getPosts();
   console.log(posts);
@@ -36,4 +35,4 @@ export default async function Home() {
       </main>
     </div>
   );
-}
+};

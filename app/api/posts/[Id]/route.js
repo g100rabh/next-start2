@@ -11,8 +11,6 @@ export async function DELETE(request, { params }) {
   return NextResponse.json(post);
 }
 
-
-
 export async function GET(request, { params }) {
 
   const id = params.Id;

@@ -100,5 +100,4 @@ const EditPosts = ({params}) => {
     </div>
   );
 };
-
 export default EditPosts;

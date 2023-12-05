@@ -39,5 +39,4 @@ const PostCards = (props) => {
     </div>
   );
 };
-
 export default PostCards;
