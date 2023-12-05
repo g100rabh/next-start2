@@ -1,11 +1,13 @@
-'use client'
-
-const { signOut } = require("next-auth/react")
+"use client";
+import "../../../styles/global.css";
+const { signOut } = require("next-auth/react");
 
 const Logout = () => {
-    return (
-        <button onClick={() => signOut()}>Logout</button>
-    )
-}
+  return (
+    <button className="bg-red-500 px-3 py-1 rounded-sm" onClick={() => signOut()}>
+      Logout
+    </button>
+  );
+};
 
 export default Logout;
