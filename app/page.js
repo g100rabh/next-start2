@@ -1,10 +1,9 @@
 import styles from "./page.module.css";
 import prisma from "../lib/prisma";
 import PostCards from "./components/PostCards";
-import AddPosts from "./add-post/page";
 import Link from "next/link";
 import "../styles/global.css";
-import Header from "./components/Header/Header";
+
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
@@ -24,7 +23,6 @@ export default async function Home() {
   console.log(posts);
   return (
     <div>
-      <Header />
       <main className={styles.main}>
         <Link className={styles.addpost} href={"/add-post"}>
           Add Post

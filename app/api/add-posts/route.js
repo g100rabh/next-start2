@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 
 const { NextResponse } = require("next/server");
 
@@ -12,7 +13,7 @@ export async function POST(request) {
             title,
             content,
             published: true,
-            // author: {create: {name: 'sam'}}
+            // author: session.user.email
         }
     })
     return NextResponse.json({result});
